@@ -25,10 +25,6 @@ public class Practica1_Tema2 {
         fecha = teclado.nextLine();
         //primero pregunto la fecha de nacimiento
 
-        String separador1 = fecha.substring(2,3);
-        String separador2 = fecha.substring(5,6);
-
-
 
             int tamano = fecha.length();
             if (tamano == 10){
@@ -47,7 +43,8 @@ public class Practica1_Tema2 {
                     System.out.println("Por favor introduce un formato válido");
                     return;//el return sirve para parar el programa una vez te ponga el mensaje y que no siga funcionando
                 }
-
+                String separador1 = fecha.substring(2,3);
+                String separador2 = fecha.substring(5,6);
                 if (separador1.equals(formato1)|| separador1.equals(formato2) || separador1.equals(formato3) || separador2.equals(formato1)|| separador2.equals(formato2) || separador2.equals(formato3)) {
                     //este condicional sirve para que en el formato de la fecha solo se pueda diferenciar el mes el dia y el año con barra , guión o espacio
                     if (numeros_dia > MAXIMO_NUMEROS_DIA || numeros_dia < MINIMO_NUMEROS_DIA) {
@@ -87,7 +84,7 @@ public class Practica1_Tema2 {
 
             }else {
                 System.out.println("Por favor, introduce un formato de fecha correcto");
-            }//mensaje que se imprime si intentas poner menos o más días de los permitidos
+            }//mensaje que se imprime si intentas poner menos o más días, meses o años de los permitidos
 
 
 
