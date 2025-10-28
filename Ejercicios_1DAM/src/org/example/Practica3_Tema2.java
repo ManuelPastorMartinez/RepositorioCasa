@@ -4,64 +4,85 @@ import java.util.Scanner;
 
 public class Practica3_Tema2 {
     static void main() {
-        Scanner teclado = new Scanner(System.in);
-        String ISBN = "";
+        Scanner entrada = new Scanner(System.in);
+        int posicion = 0;
+        char UltimoNumero = 0;
+        int UltimaPosicion = 0;
+        int PruebaISBN = 0;
+        int n = 1;
+        int Numero_faltante = 0;
         int tamanyo_ISBN = 0;
-        int SumaISBN = 0;
-        int UltimoNumero = 0;
+        String ISBN = "";
+        System.out.println("-----------------");
         System.out.println("****BIENVENIDO AL COMPROBADOR AL ISBN****");
-        System.out.println("---------------------------------");
-        System.out.println("¿Que quieres hacer?");
+        System.out.println("-----------------");
+        System.out.println("¿Qué quieres hacer?");
         System.out.println("[1]-Validar el ISBN");
         System.out.println("[2]-Reparar el ISBN");
         System.out.println("[X]-Salir");
-        System.out.println("---------------------------------");
-
-        String opcion = teclado.next().toLowerCase();
-        teclado.nextLine();
-        switch (opcion){
-            case "1":
-
-                System.out.println("Has escogido validar el ISBN");
-                System.out.println("Primero por favor introduce tu ISBN");
-                ISBN = teclado.next();
-                tamanyo_ISBN = ISBN.length();
-                SumaISBN = 0;
-
-                if (tamanyo_ISBN == 10){
-                    for (int i = 0; i >= 10  ; i++){
-                        String trozo_10 = String.valueOf(ISBN.charAt(9));
-                        UltimoNumero = 0;
-
-                        if (trozo_10 == "X" || trozo_10 == "x"){
-                            UltimoNumero = 10;
-                        }else if (trozo_10 != "X" || trozo_10 != "x"){
-                            UltimoNumero = 9;
-                        }else {
-                            System.out.println("El último número debe ser un número o la letra X");
+        System.out.println("-----------------");
+        String modo = entrada.next().toLowerCase();
+        if (modo.equals("1") || modo.equals("2")) {
+            System.out.println("Introduce un ISBN");
+            ISBN = entrada.next().toLowerCase();
+            tamanyo_ISBN = ISBN.length();
+        }
+        if (tamanyo_ISBN == 10 || modo.equals("x")) {
+            switch (modo) {
+                case "1":
+                    for (int i = tamanyo_ISBN - 1; i >= 0; i--) {
+                        UltimoNumero = ISBN.charAt(i);
+                        if (UltimoNumero == 'x' || UltimoNumero == 'X') {
+                            UltimaPosicion = 10;
+                        } else {
+                            UltimaPosicion = Integer.parseInt(String.valueOf(UltimoNumero));
+                        }
+                        PruebaISBN += UltimaPosicion * n;
+                        n = n + 1;
+                    }
+                    if (PruebaISBN % 11 == 0) {
+                        System.out.println("El ISBN es válido");
+                    } else {
+                        System.out.println("El ISBN no es válido");
+                    }
+                    break;
+                case "2":
+                    for (int i = tamanyo_ISBN - 1; i >= 0; i--) {
+                        UltimoNumero = ISBN.charAt(i);
+                        if (UltimoNumero == 'x') {
+                            UltimaPosicion = 10;
+                        } else if (UltimoNumero == '?') {
+                            posicion = n;
+                            UltimaPosicion = 0;
+                        } else {
+                            UltimaPosicion = Integer.parseInt(String.valueOf(UltimoNumero));
+                        }
+                        PruebaISBN += UltimaPosicion * n;
+                        n = n + 1;
+                    }
+                    if (PruebaISBN % 11 == 0) {
+                        System.out.println("El numero que falta es 0");
+                    } else {
+                        for (Numero_faltante = 0; Numero_faltante <= 10; Numero_faltante++) {
+                            int PruebaISBN2 = PruebaISBN + Numero_faltante * posicion;
+                            if (PruebaISBN2 % 11 == 0) {
+                                if (Numero_faltante == 10) {
+                                } else
+                                    System.out.println("El número que falta es " + Numero_faltante);
+                                break;
+                            }
                         }
                     }
-                    SumaISBN += UltimoNumero * 10;
-
-                    if (SumaISBN % 11 == 0){
-                        System.out.println("El ISBN es válido");
-                    }else {
-                        System.out.println("EL ISBN no es válido");
-                    }
-                }else {
-                    System.out.println("Tamaño incorrecto, por favor introduce un ISBN válido");
-                }
-
-                break;
-            case "2":
-                break;
-            case "x":
-                break;
-            default:
-                System.out.println("Introduce una opción válida que quieras hacer");
-                break;
+                    break;
+                case "x":
+                    System.out.println("Muchas gracias por utilizar nuestros servicios");
+                    break;
+                default:
+                    System.out.println("Por favor haz una operación válida");
+                    break;
+            }
+        }else {
+            System.out.println("ISBN incorrecto, por favor, introduce un ISBN válido (10 números, el último puede ser una X)");
         }
-
-
     }
 }
