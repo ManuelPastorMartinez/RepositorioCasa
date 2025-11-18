@@ -52,7 +52,7 @@ public class Practica1_Tema3 {
         System.out.println("Empieza la batalla!");
         int samurai_equipos = random.nextInt(7);//Aquí se utiliza el random para ver en cuál samurai se comienza y que así sea a suerte y no puedas
         //enviar el samurai más fuerte primero
-        System.out.println("La batalla inicia con el samurai "+samurai_equipos);
+        System.out.println("La batalla inicia con el samurai "+(samurai_equipos+1));
         int muertes_equipo1 = 0;
         int muertes_equipo2 = 0;
         //Creo estas dos variables que se van a ir sumando conforme gane un equipo u otro
